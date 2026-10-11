@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio - สุธาสินี พรมชาติ</title>
+  
+  <!-- Google Fonts: Sarabun & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* กล่อง Container สำหรับ Particle Background */
+#particles-js {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* ส่งไปอยู่เลเยอร์หลังสุด */
+  background-color: var(--bg-main, #fbf9f5); /* สีพื้นหลังโทนน้ำตาลอ่อน */
+  pointer-events: auto;
+}
+    /* CSS Variables: Earth-tone Theme (โทนน้ำตาลอบอุ่น ทันสมัย) */
+    :root {
+      --bg-main: #fbf9f5;
+      --card-bg: #ffffff;
+      --brand-brown: #7c4a27;
+      --brand-brown-hover: #5d3519;
+      --accent-warm: #f4ede4;
+      --accent-pill: #eedfd2;
+      --text-dark: #26221f;
+      --text-muted: #665e55;
+      --border-color: #ebdcd0;
+      --shadow: 0 8px 24px -6px rgba(124, 74, 39, 0.08);
+      --nav-height: 70px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth; /* เลื่อนหน้าจออย่างนุ่มนวลเมื่อกด Anchor Link */
+    }
+
+    body {
+      font-family: 'Sarabun', sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    /* ========================================================
+       Requirement 9 & 10: Navbar & Responsive Hamburger Toggle 
+       ======================================================== */
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(251, 249, 245, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      z-index: 1000;
+      height: var(--nav-height);
+    }
+
+    .nav-container {
+      max-width: 1100px;
+      height: 100%;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .nav-logo {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--brand-brown);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+
+    /* Menu Links */
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      list-style: none;
+    }
+
+    .nav-links li a {
+      text-decoration: none;
+      color: var(--text-dark);
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+      padding: 6px 4px;
+    }
+
+    .nav-links li a:hover {
+      color: var(--brand-brown);
+      border-bottom: 2px solid var(--brand-brown);
+    }
+
+    /* Hamburger Button (ซ่อนไว้สำหรับหน้าจอใหญ่) */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 28px;
+      height: 22px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .hamburger span {
+      width: 100%;
+      height: 2.5px;
+      background-color: var(--brand-brown);
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    /* ========================================================
+       Container & Structure
+       ======================================================== */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 30px 20px 80px 20px;
+    }
+
+    /* Requirement 10: เผื่อระยะ Offset ด้านบนไม่ให้ Navbar บังหัวข้อเวลาคลิกลิงก์ */
+    section {
+      scroll-margin-top: calc(var(--nav-height) + 20px);
+      margin-bottom: 45px;
+    }
+
+    /* Requirement 7: การใช้เส้นแบ่งย่อหน้า (hr) */
+    hr {
+      border: 0;
+      height: 1.5px;
+      background: linear-gradient(to right, transparent, var(--border-color), transparent);
+      margin: 40px 0;
+    }
+
+    /* Section Header */
+    .section-title {
+      font-family: 'Plus Jakarta Sans', 'Sarabun', sans-serif;
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--brand-brown);
+      margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .section-title::before {
+      content: "";
+      width: 6px;
+      height: 20px;
+      background-color: var(--brand-brown);
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    /* ========================================================
+       Profile Header Section
+       Requirement 1, 2, 3, 4, 5, 6
+       ======================================================== */
+    .profile-header-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      box-shadow: var(--shadow);
+    }
+
+    /* Requirement 1: การใช้รูป Display แบบวงกลม */
+    .avatar-wrapper {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .profile-avatar {
+      width: 170px;
+      height: 170px;
+      border-radius: 50%; /* วงกลมสมบูรณ์ */
+      object-fit: cover;
+      border: 4px solid #ffffff;
+      box-shadow: 0 6px 18px rgba(124, 74, 39, 0.18);
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .profile-avatar:hover {
+      transform: rotate(360deg) scale(1.04); /* ลูกเล่นหมุนและขยายเมื่อชี้เมาส์ */
+    }
+
+    .profile-info {
+      flex: 1;
+    }
+
+    /* Requirement 2: ชื่อ-นามสกุลแบบ h1 */
+    .profile-info h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+      letter-spacing: -0.5px;
+    }
+
+    /* Requirement 3: สาขาวิชาที่นักศึกษาสังกัด เป็นตัวเอียง em */
+    .major-em {
+      font-style: italic;
+      color: var(--brand-brown);
+      font-weight: 600;
+      font-size: 1.1rem;
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+
+    /* Requirement 4: ชื่อคณะ */
+    .faculty-name {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    /* Requirement 5: ชื่อสถาบันฯ มีลิงก์ไปยัง http://pim.ac.th */
+    .institute-link {
+      display: inline-block;
+      color: var(--brand-brown);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 14px;
+      border-bottom: 1px dashed var(--brand-brown);
+      transition: color 0.2s;
+    }
+
+    .institute-link:hover {
+      color: var(--brand-brown-hover);
+      border-bottom-style: solid;
+    }
+
+    /* Requirement 6: ประวัติโดยย่อของตนเอง เป็นคำแนะนำสั้นๆ */
+    .short-bio {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ========================================================
+       Requirement 11: Responsive Grid Setup
+       Desktop: 4 แถว/คอลัมน์, Tablet: 2 แถว/คอลัมน์, Mobile: 1 แถว/คอลัมน์
+       ======================================================== */
+    .responsive-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); /* Desktop: 4 Columns */
+      gap: 20px;
+    }
+
+    .grid-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 24px 20px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .grid-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px -6px rgba(124, 74, 39, 0.12);
+    }
+
+    .grid-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--brand-brown);
+      margin-bottom: 8px;
+    }
+
+    .grid-card p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .pill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .pill-tag {
+      background-color: var(--accent-pill);
+      color: var(--brand-brown);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 9px;
+      border-radius: 6px;
+    }
+
+    /* ========================================================
+       Requirement 12, 13, 14, 15, 16, 17: Contact Section
+       ======================================================== */
+    .contact-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 30px 35px;
+      box-shadow: var(--shadow);
+    }
+
+    /* Requirement 13: ใช้ Ordered List (ol) */
+    .contact-ol {
+      margin-left: 22px;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .contact-ol li strong {
+      color: var(--brand-brown);
+      font-weight: 600;
+    }
+
+    /* Requirement 14: ใช้ภาพแทนเครื่องหมาย @ เพื่อป้องกันสแปม */
+    .at-icon {
+      display: inline-block;
+      vertical-align: middle;
+      width: 18px;
+      height: 18px;
+      margin: 0 2px;
+    }
+
+    /* ========================================================
+       Media Queries (Responsive System)
+       ======================================================== */
+    /* Tablet Screen: กว้างไม่เกิน 992px */
+    @media (max-width: 992px) {
+      .responsive-grid {
+        grid-template-columns: repeat(2, 1fr); /* Requirement 11: 2 แถว/คอลัมน์ */
+      }
+    }
+
+    /* Mobile Screen: กว้างไม่เกิน 768px */
+    @media (max-width: 768px) {
+      /* Requirement 11: มือถือ 1 แถว/คอลัมน์ */
+      .responsive-grid {
+        grid-template-columns: 1fr; 
+      }
+
+      .profile-header-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px 20px;
+      }
+
+      .hamburger {
+        display: flex; /* Requirement 9: แสดง Hamburger Menu บนมือถือ */
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: var(--nav-height);
+        left: 0;
+        width: 100%;
+        background-color: #ffffff;
+        border-bottom: 1px solid var(--border-color);
+        padding: 16px 24px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      .nav-links.active {
+        display: flex; /* Toggle เปิด-ปิด เมนู */
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ผืนผ้าใบแสดง Particle ขยับได้ -->
+  <div id="particles-js"></div>
+
+  <!-- ตามด้วยแท็ก nav และเนื้อหาอื่นๆ ของเว็บตามปกติ -->
+  <nav> ... </nav>
+  <!-- ==========================================
+       Requirement 9 & 10: Navbar พร้อม Anchor Link
+       ========================================== -->
+  <nav>
+    <div class="nav-container">
+      <a href="#about" class="nav-logo">SUTHASINEE</a>
+      
+      <!-- ปุ่ม Hamburger สำหรับหน้าจอมือถือ (Requirement 9) -->
+      <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <!-- เมนู Anchor Links (Requirement 10) -->
+      <ul class="nav-links" id="navMenu">
+        <li><a href="#about">About Me</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <!-- ==========================================
+         Requirement 8: Section "About Me"
+         ประกอบด้วย Req 1, 2, 3, 4, 5, 6
+         ========================================== -->
+    <section id="about">
+      <div class="profile-header-card">
+        <!-- Req 1: รูป Display วงกลม (หมุน 360 องศาเมื่อ Hover) -->
+        <div class="avatar-wrapper">
+          <img src="รูป.jpg" alt="สุธาสินี พรมชาติ" class="profile-avatar">
+        </div>
+
+        <div class="profile-info">
+          <!-- Req 2: ชื่อ-นามสกุลแบบ h1 -->
+          <h1>สุธาสินี พรมชาติ</h1>
+
+          <!-- Req 3: สาขาวิชาเป็นตัวเอียง em -->
+          <div class="major-em">
+            <em>สาขาวิศวกรรมคอมพิวเตอร์และปัญญาประดิษฐ์</em>
+          </div>
+
+          <!-- Req 4: ชื่อคณะ -->
+          <div class="faculty-name">คณะวิศวกรรมศาสตร์และเทคโนโลยี</div>
+
+          <!-- Req 5: ชื่อสถาบันฯ พร้อมลิงก์ไปยัง http://pim.ac.th -->
+          <div>
+            <a href="http://pim.ac.th" target="_blank" rel="noopener noreferrer" class="institute-link">
+              สถาบันการจัดการปัญญาภิวัฒน์ (PIM) ↗
+            </a>
+          </div>
+
+          <!-- Req 6: ประวัติโดยย่อของตนเองสั้นๆ -->
+          <p class="short-bio">
+            นักศึกษาชั้นปีที่ 2 ผู้มีความหลงใหลในการประยุกต์ใช้ปัญญาประดิษฐ์ (AI) และการบริหารจัดการข้อมูลขนาดใหญ่ (Big Data) มีพื้นฐานการเขียนโปรแกรมและการพัฒนาเว็บ พร้อมประสบการณ์บริหารงานค้าปลีกในตำแหน่งผู้ช่วยผู้จัดการร้าน มุ่งมั่นเรียนรู้และพร้อมเติบโตในการปฏิบัติงานจริง
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Req 7: เส้นแบ่งย่อหน้า -->
+    <hr>
+
+    <!-- ==========================================
+         Requirement 8: Section "Education"
+         Requirement 11: แสดงผลแบบ Responsive Grid
+         ========================================== -->
+    <section id="education">
+      <div class="section-title">การศึกษา (Education)</div>
+      <div class="responsive-grid">
+        <div class="grid-card">
+          <h3>ปริญญาตรี (กำลังศึกษา)</h3>
+          <p>วศ.บ. วิศวกรรมคอมพิวเตอร์และปัญญาประดิษฐ์</p>
+          <p>สถาบันการจัดการปัญญาภิวัฒน์</p>
+          <div class="pill-tags">
+            <span class="pill-tag">GPAX 3.06</span>
+            <span class="pill-tag">ปีที่ 2</span>
+          </div>
+        </div>
+
+        <div class="grid-card">
+          <h3>ประกาศนียบัตรวิชาชีพ</h3>
+          <p>ปวช. สาขาธุรกิจค้าปลีกสมัยใหม่</p>
+          <p>วิทยาลัยเทคโนโลยีปัญญาภิวัฒน์</p>
+          <div class="pill-tags">
+            <span class="pill-tag">GPAX 3.99</span>
+            <span class="pill-tag">สำเร็จการศึกษา</span>
+          </div>
+        </div>
+
+        <div class="grid-card">
+          <h3>AI & Big Data Coursework</h3>
+          <p>ปัญญาประดิษฐ์เบื้องต้น, คณิตศาสตร์สำหรับ AI, ระบบฐานข้อมูลและข้อมูลขนาดใหญ่</p>
+          <div class="pill-tags">
+            <span class="pill-tag">Data Tech</span>
+          </div>
+        </div>
+
+        <div class="grid-card">
+          <h3>System & Web Coursework</h3>
+          <p>การพัฒนาเว็บแบบครบวงจร (Full-Stack), โครงสร้างข้อมูลและขั้นตอนวิธี, ระบบโครงข่ายและคลาวด์</p>
+          <div class="pill-tags">
+            <span class="pill-tag">Systems</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Req 7: เส้นแบ่งย่อหน้า -->
+    <hr>
+
+    <!-- ==========================================
+         Requirement 8: Section "Skills"
+         Requirement 11: แสดงผลแบบ Responsive Grid
+         ========================================== -->
+    <section id="skills">
+      <div class="section-title">ทักษะความสามารถ (Skills)</div>
+      <div class="responsive-grid">
+        <div class="grid-card">
+          <h3>Programming</h3>
+          <p>ภาษาคอมพิวเตอร์สำหรับการเขียนโปรแกรมและจัดการข้อมูล</p>
+          <div class="pill-tags">
+            <span class="pill-tag">Python</span>
+            <span class="pill-tag">SQL</span>
+            <span class="pill-tag">JavaScript</span>
+          </div>
+        </div>
+
+        <div class="grid-card">
+          <h3>AI & Data Analytics</h3>
+          <p>การเตรียมข้อมูลและการสร้างโมเดล Machine Learning เบื้องต้น</p>
+          <div class="pill-tags">
+            <span class="pill-tag">Data Preprocessing</span>
+            <span class="pill-tag">ML Basics</span>
+            <span class="pill-tag">MySQL</span>
+          </div>
+        </div>
+
+        <div class="grid-card">
+          <h3>Web & Cloud</h3>
+          <p>การพัฒนาเว็บแอปพลิเคชันและพื้นฐานสถาปัตยกรรมคลาวด์</p>
+          <div class="pill-tags">
+            <span class="pill-tag">HTML5 / CSS3</span>
+            <span class="pill-tag">RESTful API</span>
+            <span class="pill-tag">Cloud Basics</span>
+          </div>
+        </div>
+
+        <div class="grid-card">
+          <h3>Tools & Soft Skills</h3>
+          <p>เครื่องมือทำงานร่วมกันและทักษะการบริหารจัดการ</p>
+          <div class="pill-tags">
+            <span class="pill-tag">Git / GitHub</span>
+            <span class="pill-tag">VS Code</span>
+            <span class="pill-tag">Leadership</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Req 7: เส้นแบ่งย่อหน้า -->
+    <hr>
+
+    <!-- ==========================================
+         Requirement 8: Section "และอื่น ๆ" (Experience & Activities)
+         Requirement 11: แสดงผลแบบ Responsive Grid
+         ========================================== -->
+    <section id="experience">
+      <div class="section-title">ประสบการณ์และกิจกรรม (Experience & Activities)</div>
+      <div class="responsive-grid">
+        <div class="grid-card">
+          <h3>ผู้ช่วยผู้จัดการร้าน 2</h3>
+          <p>บริษัท ซีพี ออลล์ จำกัด (มหาชน)</p>
+          <p>บริหารจัดการสต็อก ควบคุมกระแสเงินสด และจัดการระบบ POS/ERP ในร้าน 7-Eleven</p>
+        </div>
+
+        <div class="grid-card">
+          <h3>การแก้ไขปัญหาเฉพาะหน้า</h3>
+          <p>ทักษะการตัดสินใจในสภาวะกดดัน บริหารข้อร้องเรียน และประสานงานทีมบริการ</p>
+        </div>
+
+        <div class="grid-card">
+          <h3>ค่ายกลคนวิศวะ ET CAMP</h3>
+          <p>เข้าร่วมกิจกรรมเชิงปฏิบัติการและแลกเปลี่ยนความรู้ด้านวิศวกรรมศาสตร์</p>
+        </div>
+
+        <div class="grid-card">
+          <h3>ทักษะทางภาษา</h3>
+          <p>ภาษาไทย: เจ้าของภาษา (Native)</p>
+          <p>ภาษาอังกฤษ: Technical Reading (อ่านเอกสารคู่มือทางเทคนิคได้)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Req 7: เส้นแบ่งย่อหน้า -->
+    <hr>
+
+    <!-- ==========================================
+         Requirement 12, 13, 14, 15, 16, 17: Section "Contact"
+         ========================================== -->
+    <section id="contact">
+      <div class="section-title">ช่องทางการติดต่อ (Contact Information)</div>
+      <div class="contact-card">
+        <!-- Req 13: มีข้อมูลการติดต่อต่าง ๆ โดยใช้ Ordered List (ol) -->
+        <ol class="contact-ol">
+          <!-- Req 14: อีเมลสถาบัน โดยใช้ "ภาพแทนเครื่องหมาย @" เพื่อป้องกันสแปม -->
+          <li>
+            <strong>อีเมลสถาบัน:</strong>
+            <span>6840010406</span><!-- 
+              ใช้รูปภาพ SVG ขนาดเล็กแทนตัว @ 
+            --><svg class="at-icon" viewBox="0 0 24 24" fill="none" stroke="#7c4a27" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"></path>
+              </svg><span>stu.pim.ac.th</span>
+          </li>
+
+          <!-- Req 15: เบอร์โทรศัพท์ (เลี่ยงเบอร์จริง) -->
+          <li>
+            <strong>เบอร์โทรศัพท์:</strong> 09x-xxx-5678 
+          </li>
+
+          <!-- Req 16: ที่อยู่ (เลี่ยงสถานที่จริง) -->
+          <li>
+            <strong>ที่อยู่:</strong> อำเภอปากเกร็ด จังหวัดนนทบุรี 11120
+          </li>
+
+          <!-- Req 17: อื่น ๆ ตามต้องการ (GitHub & Portfolio) -->
+          <li>
+            <strong>GitHub Profile:</strong> 
+            <a href="https://github.com/suthasinee-promchat" target="_blank" rel="noopener noreferrer" style="color: var(--brand-brown); font-weight: 600;">
+              github.com/suthasinee-promchat
+            </a>
+          </li>
+          <li>
+            <strong>Instagram:</strong> 
+            <a href="https://www.instagram.com/praewa._._._sp/" target="_blank" rel="noopener noreferrer" style="color: var(--brand-brown); font-weight: 600;">
+              instagram.com/praewa._._._sp
+            </a>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================
+       Requirement 9 & 10: JavaScript จัดการ Mobile Navbar Toggle
+       ========================================== -->
+  <script>
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const navMenu = document.getElementById('navMenu');
+
+    // เมื่อคลิกปุ่ม Hamburger ให้เปิดหรือปิดเมนู (Req 9)
+    hamburgerBtn.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+    });
+
+    // เมื่อคลิกเลือกเมนูแล้ว ให้ซ่อนเมนูอัตโนมัติ (Req 10)
+    const navLinks = document.querySelectorAll('.nav-links a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+      });
+    });
+  </script>
+<!-- ดึงไลบรารี particles.js ผ่าน CDN -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  
+ <script>
+    particlesJS('particles-js', {
+      particles: {
+        number: {
+          value: 75, // จำนวนดาว (ปรับเพิ่ม-ลดได้ตามชอบ)
+          density: {
+            enable: true,
+            value_area: 800
+          }
+        },
+        color: {
+          value: '#7c4a27' // สีของดาว (โทนน้ำตาลคาราเมลเข้ม)
+        },
+        // --- แก้ไขตรงนี้เพื่อเปลี่ยนจุดเป็นรูปดาว ---
+        shape: {
+          type: 'star', // เปลี่ยนจาก 'circle' เป็น 'star'
+          stroke: {
+            width: 0,
+            color: '#000000'
+          },
+          polygon: {
+            nb_sides: 5 // กำหนดให้เป็นดาว 5 แฉก
+          }
+        },
+        opacity: {
+          value: 0.6, // เพิ่มความโปร่งแสงเล็กน้อยให้ดาวเห็นชัดขึ้น
+          random: true, // สุ่มความจาง-เข้มให้เหมือนดาวระยิบระยับ
+          anim: {
+            enable: true,
+            speed: 1,
+            opacity_min: 0.1,
+            sync: false
+          }
+        },
+        size: {
+          value: 5, // ปรับขนาดของดาวให้ใหญ่ขึ้นเล็กน้อย (จากเดิม 3.5)
+          random: true, // สุ่มขนาดดาวดวงเล็ก-ใหญ่สลับกัน
+          anim: {
+            enable: false,
+            speed: 40,
+            size_min: 0.1,
+            sync: false
+          }
+        },
+        line_linked: {
+          enable: true,
+          distance: 140, // ระยะเชื่อมต่อระหว่างดาว
+          color: '#8c5835', // สีของเส้นเชื่อมโยง (โทนน้ำตาลอ่อน)
+          opacity: 0.3,
+          width: 1.2
+        },
+        move: {
+          enable: true,
+          speed: 1.5, // ลดความเร็วลงเล็กน้อยเพื่อให้ดาวลอยอย่างนุ่มนวลเป็นธรรมชาติ
+          direction: 'none',
+          random: true, // สุ่มทิศทางการลอยตัว
+          straight: false,
+          out_mode: 'out',
+          bounce: false
+        }
+      },
+      interactivity: {
+        detect_on: 'window',
+        events: {
+          onhover: {
+            enable: true,
+            mode: 'grab' // เมื่อลอยเมาส์ผ่าน จะมีเส้นใยเชื่อมโยงกลุ่มดาวดึงดูดเข้าหาเมาส์
+          },
+          onclick: {
+            enable: true,
+            mode: 'push' // เมื่อคลิกเมาส์ จะเพิ่มดาวดวงใหม่กระจายตัวออกมา
+          },
+          resize: true
+        },
+        modes: {
+          grab: {
+            distance: 180,
+            line_linked: {
+              opacity: 0.8
+            }
+          },
+          push: {
+            particles_nb: 4 // จำนวนดาวที่จะเพิ่มขึ้นเมื่อคลิก
+          }
+        }
+      },
+      retina_detect: true
+    });
+  </script>
+</body>
+</html>
